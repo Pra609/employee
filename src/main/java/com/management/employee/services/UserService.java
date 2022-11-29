@@ -1,12 +1,17 @@
 package com.management.employee.services;
 
 import com.management.employee.dtos.UserDto;
+import com.management.employee.dtos.UserEditDto;
 import com.management.employee.entities.User;
 import com.management.employee.errors.UserAlreadyExists;
+import com.management.employee.repositories.CompanyRepository;
+import com.management.employee.repositories.DepartmentRepository;
 import com.management.employee.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -17,7 +22,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDto createEmployee(UserDto userDto) {
+    @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    public User createEmployee(UserDto userDto) {
 
 
         String email = userDto.getEmail();
@@ -30,11 +41,48 @@ public class UserService {
 
         User employee = modelMapper.map(userDto, User.class);
 
-
+        int cid= userDto.getCid();
+        if(companyRepository.findById(cid).isPresent()){
+            employee.setCompany(companyRepository.getById(cid));
+        }
+        else {
+            throw new NoSuchElementException("company " + cid + " not found");
+        }
         userRepository.save(employee);
 
-        UserDto userDto1 = modelMapper.map(employee, UserDto.class);
-        return userDto1;
+
+        return employee;
 
     }
+
+    public User userEdit(int id, UserEditDto userEditDto) {
+        User user = userRepository.getById(id);
+        if (userEditDto.getName() != null) {
+            user.setName(userEditDto.getName());
+        }
+        if (userEditDto.getEmail() != null) {
+            user.setEmail(userEditDto.getEmail());
+        }
+        if (userEditDto.getPassword() != null) {
+            user.setPassword(userEditDto.getPassword());
+        }
+        if (userEditDto.getDid() != 0) {
+            if (departmentRepository.findById(userEditDto.getDid()).isPresent()) {
+                user.setDepartment(departmentRepository.getById(userEditDto.getDid()));
+            } else {
+                throw new NoSuchElementException("department with id" + userEditDto.getDid() + "is not present");
+            }
+
+
+
+
+        }
+        userRepository.save(user);
+
+        return user;
+
+    }
+
+
+
 }

@@ -1,7 +1,11 @@
 package com.management.employee.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,8 +21,11 @@ public class Company {
 
     private String companyName;
 
-    @OneToMany(mappedBy = "company")
-   private  Set<User> user=new HashSet<>();
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private  Set<User> user=new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "company_department",

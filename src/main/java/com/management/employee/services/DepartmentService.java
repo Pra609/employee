@@ -3,6 +3,7 @@ package com.management.employee.services;
 
 import com.management.employee.dtos.DepartmentDto;
 import com.management.employee.entities.Department;
+import com.management.employee.errors.UserAlreadyExists;
 import com.management.employee.repositories.DepartmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,18 @@ public class DepartmentService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public DepartmentDto saveDepartment(DepartmentDto departmentDto){
-        Department department=modelMapper.map(departmentDto, Department.class);
+    public Department saveDepartment(DepartmentDto departmentDto){
+
+        String dName = departmentDto.getDName();
+        //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
+        if(departmentRepository.findOneByDepartmentNameIgnoreCase(dName).isPresent()){
+            throw new UserAlreadyExists("Department with name " + dName + " is already presenet  ");
+        }
+        Department department=new Department();
+        department.setDepartmentName(departmentDto.getDName());
+        //System.out.println(department);
         departmentRepository.save(department);
-        return departmentDto;
+
+        return department;
     }
 }

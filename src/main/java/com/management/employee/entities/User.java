@@ -1,6 +1,9 @@
 package com.management.employee.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,11 +33,13 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "department_id")
     private  Department department;
 
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JsonManagedReference
     @JoinColumn(name = "company_id")
     private Company company;
 

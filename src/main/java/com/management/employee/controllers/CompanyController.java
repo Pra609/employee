@@ -1,10 +1,11 @@
 package com.management.employee.controllers;
 
 import com.management.employee.dtos.CDReturnDto;
+import com.management.employee.dtos.CompanyDto;
 import com.management.employee.dtos.DepartmentDto;
+import com.management.employee.entities.Company;
 import com.management.employee.entities.Department;
-import com.management.employee.repositories.DepartmentRepository;
-import com.management.employee.services.DepartmentService;
+import com.management.employee.services.CompanyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,32 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
-
 @RestController
-public class DepartmentController {
-
-
+public class CompanyController {
     @Autowired
-      private DepartmentService departmentService;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private CompanyService companyService;
 
     @Autowired
     private ModelMapper modelMapper;
-
-    @PostMapping("/department")
-    public ResponseEntity<CDReturnDto> createDepartment(@Valid @RequestBody DepartmentDto departmentDto){
-        Department createDepartment=this.departmentService.saveDepartment(departmentDto);
-        CDReturnDto cdReturnDto=this.modelMapper.map(createDepartment,CDReturnDto.class);
+    @PostMapping("/company")
+    public ResponseEntity<CDReturnDto> createCompany(@Valid @RequestBody CompanyDto companyDto){
+       Company company=this.companyService.saveCompany(companyDto);
+      CDReturnDto cdReturnDto=this.modelMapper.map(company,CDReturnDto.class);
         return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/getDepartment")
-    public  ResponseEntity<List<Department>> getAllDepartemts(){
-        List<Department> departments=departmentRepository.findAll();
-        return new ResponseEntity<>(departments, HttpStatus.OK);
+    @GetMapping("/allcompanies")
+    public ResponseEntity<List<Company>> getAllcompanies(){
+
+        List<Company> companies= this.companyService.getCompany();
+        return  new ResponseEntity<>(companies, HttpStatus.OK);
+
+
+
     }
+
 
 
 }
