@@ -40,7 +40,7 @@ public class DepartmentService {
 
         Optional<Department> d1=departmentRepository.findById(id);
         if(d1!=null){
-            departmentRepository.deleteById(id);
+            departmentRepository.deleteDepartment(id);
         }else{
             throw new NoSuchFieldException("department id "+id+" is not present");
         }
