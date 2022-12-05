@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class DepartmentService {
 
@@ -20,16 +22,30 @@ public class DepartmentService {
 
     public Department saveDepartment(DepartmentDto departmentDto){
 
-        String dName = departmentDto.getDName();
+        String dName = departmentDto.getDname();
         //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
         if(departmentRepository.findOneByDepartmentNameIgnoreCase(dName).isPresent()){
-            throw new UserAlreadyExists("Department with name " + dName + " is already presenet  ");
+            throw new UserAlreadyExists("Department with name " + dName + " is already present  ");
         }
         Department department=new Department();
-        department.setDepartmentName(departmentDto.getDName());
+        department.setDepartmentName(departmentDto.getDname());
         //System.out.println(department);
         departmentRepository.save(department);
 
         return department;
+    }
+
+
+    public  void deleteDepartment(int id) throws NoSuchFieldException {
+
+        Optional<Department> d1=departmentRepository.findById(id);
+        if(d1!=null){
+            departmentRepository.deleteById(id);
+        }else{
+            throw new NoSuchFieldException("department id "+id+" is not present");
+        }
+
+
+
     }
 }

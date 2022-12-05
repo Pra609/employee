@@ -2,6 +2,7 @@ package com.management.employee.entities;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,13 +22,14 @@ public class Department {
     private String departmentName;
 
     @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonBackReference
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     Set<User> user=new HashSet<>();
 
 
     @ManyToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonBackReference
     private  Set<Company> company=new HashSet<>();
 
 

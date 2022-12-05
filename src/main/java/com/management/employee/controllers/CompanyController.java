@@ -10,10 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,6 +27,18 @@ public class CompanyController {
        Company company=this.companyService.saveCompany(companyDto);
       CDReturnDto cdReturnDto=this.modelMapper.map(company,CDReturnDto.class);
         return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/company/addDepartment/{id}")
+    public ResponseEntity<Company> createCompany(@PathVariable int id,@Valid @RequestBody DepartmentDto departmentDto){
+        Company company=new Company();
+        if(departmentDto!=null){
+       company =this.companyService.addDepartment(id,departmentDto);
+        }
+
+
+        return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
     @GetMapping("/allcompanies")

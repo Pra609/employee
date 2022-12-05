@@ -9,10 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -42,6 +39,16 @@ public class DepartmentController {
     public  ResponseEntity<List<Department>> getAllDepartemts(){
         List<Department> departments=departmentRepository.findAll();
         return new ResponseEntity<>(departments, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/department/{id}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable int id) throws NoSuchFieldException {
+        this.departmentService.deleteDepartment(id);
+
+       return ResponseEntity.ok("department deleted with id "+id+"successfully");
+
+
     }
 
 

@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class DepartmentDto {
 
-    String dName;
+    String dname;
 
 
 }

@@ -12,7 +12,7 @@ import javax.persistence.Access;
 
 @SpringBootApplication
 public class EmployeeManagementApplication implements CommandLineRunner {
-@Autowired
+    @Autowired
 	PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(EmployeeManagementApplication.class, args);

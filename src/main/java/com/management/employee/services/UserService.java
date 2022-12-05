@@ -2,6 +2,7 @@ package com.management.employee.services;
 
 import com.management.employee.dtos.UserDto;
 import com.management.employee.dtos.UserEditDto;
+import com.management.employee.entities.Department;
 import com.management.employee.entities.User;
 import com.management.employee.errors.UserAlreadyExists;
 import com.management.employee.repositories.CompanyRepository;
@@ -11,7 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -55,8 +58,10 @@ public class UserService {
 
     }
 
+
     public User userEdit(int id, UserEditDto userEditDto) {
-        User user = userRepository.getById(id);
+        User user = userRepository.findById(id).get();
+        System.out.println(user);
         if (userEditDto.getName() != null) {
             user.setName(userEditDto.getName());
         }
@@ -67,10 +72,13 @@ public class UserService {
             user.setPassword(userEditDto.getPassword());
         }
         if (userEditDto.getDid() != 0) {
-            if (departmentRepository.findById(userEditDto.getDid()).isPresent()) {
-                user.setDepartment(departmentRepository.getById(userEditDto.getDid()));
+
+            List<Department> department=departmentRepository.findByCompany(user.getCompany());
+
+            if (department.contains(departmentRepository.findById(userEditDto.getDid()).get())) {
+                user.setDepartment(departmentRepository.findById(userEditDto.getDid()).get());
             } else {
-                throw new NoSuchElementException("department with id" + userEditDto.getDid() + "is not present");
+                throw new NoSuchElementException("department with id " + userEditDto.getDid() + " is not present in company "+ user.getCompany().getCompanyName());
             }
 
 
@@ -82,6 +90,8 @@ public class UserService {
         return user;
 
     }
+
+
 
 
 

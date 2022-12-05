@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,17 +35,19 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToOne
-    @JsonManagedReference
+    @JsonBackReference
     @JoinColumn(name = "department_id")
     private  Department department;
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JsonManagedReference
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JsonBackReference
     @JoinColumn(name = "company_id")
     private Company company;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "euser",referencedColumnName = "userId"),
     inverseJoinColumns = @JoinColumn(name = "role",referencedColumnName = "id") )
     private Set<Role> roles = new HashSet<>();
