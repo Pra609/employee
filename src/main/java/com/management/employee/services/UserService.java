@@ -92,6 +92,24 @@ public class UserService {
     }
 
 
+    public void deleteUser(int id){
+
+
+            if(userRepository.findById(id).isPresent()){
+                userRepository.deleteById(id);
+            }
+            else{
+                throw  new NoSuchElementException("user with id "+id+" doesn't exist");
+
+            }
+
+
+
+
+    }
+
+
+
 
 
 
