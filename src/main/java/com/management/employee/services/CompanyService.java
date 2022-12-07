@@ -52,8 +52,8 @@ public class CompanyService {
         Company company = companyRepository.findById(id).get();
         if (company != null) {
             if (departmentDto.getDname() != null) {
-                if (departmentRepository.findOneByDepartmentNameIgnoreCase(departmentDto.getDname()).isPresent()) {
-                    Department d1 = departmentRepository.findOneByDepartmentNameIgnoreCase(departmentDto.getDname()).get();
+                if (departmentRepository.findDepartmentByNameAndCompany(company.getCompanyId(),departmentDto.getDname())!=null) {
+                    Department d1 = departmentRepository.findDepartmentByNameAndCompany(company.getCompanyId(),departmentDto.getDname());
 
                     company.getDepartment().add(d1);
 

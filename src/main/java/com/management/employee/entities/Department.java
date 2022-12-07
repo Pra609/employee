@@ -28,9 +28,10 @@ public class Department {
     Set<User> user=new HashSet<>();
 
 
-    @ManyToMany(mappedBy = "department",fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonBackReference
-    private  Set<Company> company=new HashSet<>();
+    @JoinColumn(name="company_id")
+    private Company company;
 
 
 

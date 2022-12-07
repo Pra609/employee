@@ -21,16 +21,14 @@ public class Company {
 
     private String companyName;
 
-    @OneToMany(mappedBy = "company",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private  Set<User> user=new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "company_department",
-            joinColumns = @JoinColumn(name = "company_id"),
-            inverseJoinColumns = @JoinColumn(name = "department_id"))
+    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+    @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Department> department=new HashSet<>();

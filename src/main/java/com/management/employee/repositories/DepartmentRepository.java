@@ -13,8 +13,9 @@ import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department,Integer> {
 
-    public Optional<Department> findOneByDepartmentNameIgnoreCase(String name);
-
+    @Query(value = "select*from department where company_id = :companyId and department_name = :name",nativeQuery = true)
+    public Department findDepartmentByNameAndCompany(@Param("companyId") int companyId,@Param("name") String name);
+//
     public List<Department> findByCompany(Company company);
 
     @Modifying
