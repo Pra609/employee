@@ -42,11 +42,11 @@ public class DepartmentController {
     }
 
 
-    @DeleteMapping("/department/{id}")
-    public ResponseEntity<String> deleteDepartment(@PathVariable int id) throws NoSuchFieldException {
-        this.departmentService.deleteDepartment(id);
+    @DeleteMapping("/department/{cid}/{id}")
+    public ResponseEntity<String> deleteDepartment(@PathVariable int id,@PathVariable  int cid) throws NoSuchFieldException {
+        this.departmentService.deleteDepartment(id,cid);
 
-       return ResponseEntity.ok("department deleted with id "+id+"successfully");
+       return ResponseEntity.ok("department deleted with id "+id+" successfully");
 
 
     }
