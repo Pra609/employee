@@ -7,9 +7,13 @@ import com.management.employee.entities.Department;
 import com.management.employee.errors.UserAlreadyExists;
 import com.management.employee.repositories.CompanyRepository;
 import com.management.employee.repositories.DepartmentRepository;
+import com.management.employee.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.Optional;
 
@@ -24,6 +28,9 @@ public class DepartmentService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Department saveDepartment(int id,DepartmentDto departmentDto){
         Department department=new Department();
@@ -56,7 +63,15 @@ public class DepartmentService {
 
         Optional<Department> d1=departmentRepository.findById(id);
         if(d1!=null){
-            departmentRepository.deleteDepartment(id,cid);
+
+            //userRepository.deleteUserByDepartment(id);
+            if(!userRepository.UserByDepartment(id).isEmpty()){
+                departmentRepository.deleteDepartment(id,cid);
+            }else{
+                throw new UserAlreadyExists("Department with name " + id + " is already present  ");
+            }
+
+
         }else{
             throw new NoSuchFieldException("department id "+id+" is not present");
         }
@@ -64,4 +79,34 @@ public class DepartmentService {
 
 
     }
+
+    public Department editDepartment(int cid,int did,DepartmentDto departmentDto) throws NoSuchFieldException {
+
+        Department department=null;
+
+        if(companyRepository.findById(cid).isPresent()){
+
+            department=departmentRepository.findById(did).get();
+
+            if(department!=null && departmentDto!=null){
+
+                if(departmentRepository.findDepartmentByNameAndCompany(did,departmentDto.getDname())!= null){
+                    System.out.println();
+                    throw new UserAlreadyExists("Department with name " + departmentDto.getDname() + " is already present  ");
+                }
+                department.setDepartmentName(departmentDto.getDname());
+                departmentRepository.save(department);
+
+            }else{
+                throw new NoSuchFieldException("department id "+did+" is not present");
+            }
+
+
+        }
+
+        return  department;
+
+    }
+
+
 }

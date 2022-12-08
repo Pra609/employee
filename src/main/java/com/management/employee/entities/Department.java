@@ -21,7 +21,7 @@ public class Department {
 
     private String departmentName;
 
-    @OneToMany(mappedBy = "department",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department",cascade =  CascadeType.ALL,orphanRemoval = true)
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

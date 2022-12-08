@@ -20,7 +20,7 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
 
     @Modifying
     @Transactional
-    @Query(value = "delete from  company_department where department_id=:departmentId and company_id=:companyId",nativeQuery = true)
+    @Query(value = "delete from  department where department_id=:departmentId and company_id=:companyId",nativeQuery = true)
     public void deleteDepartment(@Param("departmentId") int departmentId,@Param("companyId") int companyId);
 
 

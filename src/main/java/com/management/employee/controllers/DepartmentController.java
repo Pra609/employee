@@ -6,6 +6,7 @@ import com.management.employee.entities.Department;
 import com.management.employee.repositories.DepartmentRepository;
 import com.management.employee.services.DepartmentService;
 import org.modelmapper.ModelMapper;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,11 +44,20 @@ public class DepartmentController {
 
 
     @DeleteMapping("/department/{cid}/{id}")
-    public ResponseEntity<String> deleteDepartment(@PathVariable int id,@PathVariable  int cid) throws NoSuchFieldException {
+    public ResponseEntity<String> deleteDepartment(@PathVariable int id,@PathVariable  int cid) throws NoSuchFieldException, PSQLException {
         this.departmentService.deleteDepartment(id,cid);
 
        return ResponseEntity.ok("department deleted with id "+id+" successfully");
 
+
+    }
+
+
+    @PutMapping("/edit/department/{cid}/{did}")
+    public ResponseEntity<CDReturnDto> createDepartment(@PathVariable int cid,@PathVariable int did,@Valid @RequestBody DepartmentDto departmentDto) throws NoSuchFieldException {
+        Department department=departmentService.editDepartment(cid,did,departmentDto);
+        CDReturnDto cdReturnDto=this.modelMapper.map(department,CDReturnDto.class);
+        return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
 
     }
 
