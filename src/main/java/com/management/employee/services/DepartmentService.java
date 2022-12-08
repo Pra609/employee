@@ -5,6 +5,7 @@ import com.management.employee.dtos.DepartmentDto;
 import com.management.employee.entities.Company;
 import com.management.employee.entities.Department;
 import com.management.employee.errors.UserAlreadyExists;
+import com.management.employee.repositories.CompanyRepository;
 import com.management.employee.repositories.DepartmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,29 @@ public class DepartmentService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Department saveDepartment(DepartmentDto departmentDto){
+    @Autowired
+    private CompanyRepository companyRepository;
 
-        String dName = departmentDto.getDname();
-        //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
-        if(departmentRepository.findOneByDepartmentNameIgnoreCase(dName).isPresent()){
-            throw new UserAlreadyExists("Department with name " + dName + " is already present  ");
-        }
+    public Department saveDepartment(int id,DepartmentDto departmentDto){
         Department department=new Department();
-        department.setDepartmentName(departmentDto.getDname());
-        //System.out.println(department);
-        departmentRepository.save(department);
+        if(companyRepository.findById(id).isPresent()){
+            String dName = departmentDto.getDname();
+            //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
+            if(departmentRepository.findDepartmentByNameAndCompany(id,dName)!= null){
+                System.out.println();
+                throw new UserAlreadyExists("Department with name " + dName + " is already present  ");
+            }
+
+            department.setDepartmentName(departmentDto.getDname());
+              Company company=companyRepository.findById(id).get();
+            department.setCompany(company);
+            departmentRepository.save(department);
+
+
+
+        }
+
+
 
         return department;
     }

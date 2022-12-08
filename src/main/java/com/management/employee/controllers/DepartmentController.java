@@ -28,9 +28,9 @@ public class DepartmentController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping("/department")
-    public ResponseEntity<CDReturnDto> createDepartment(@Valid @RequestBody DepartmentDto departmentDto){
-        Department createDepartment=this.departmentService.saveDepartment(departmentDto);
+    @PostMapping("/department/{id}")
+    public ResponseEntity<CDReturnDto> createDepartment(@PathVariable int id,@Valid @RequestBody DepartmentDto departmentDto){
+        Department createDepartment=this.departmentService.saveDepartment(id,departmentDto);
         CDReturnDto cdReturnDto=this.modelMapper.map(createDepartment,CDReturnDto.class);
         return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
     }
