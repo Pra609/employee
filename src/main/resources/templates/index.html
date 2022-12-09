@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html   xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Electricity Billing System</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+img {
+	width: 100%;
+	height:auto;
+  display: block;
+}
+ 
+.cover {
+	background-color: blue;
+}
+h1{
+   position:absolute;
+   top:200px;
+   left:150px;
+   font-size:50px;
+}.center{
+margin:auto;
+width:100%;
+color:white;
+padding:10px;
+}
+
+p{
+position:absolute;
+   top:300px;
+   left:200px;
+   font-size:25px;
+}.center1{
+margin:auto;
+width:100%;
+color:white;
+padding:10px;
+}
+</style>
+  </head>
+<body>
+<nav class="navbar navbar-inverse">
+<!-- nav bar for the index page -->
+  <div class="container">
+    <!-- Brand and toggle get grouped for better  display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">BILLING</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+       <li><a href="#" class="active">HOME</a></li>
+   
+        <li><a th:href="@{/signin}">LOGIN</a></li>
+         <li><a th:href="@{/register}">REGISTER</a></li>
+       </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+ 
+<div class="cover">
+	<img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80" width="460" height="345" alt="">
+	<h1 class="center">Welcome to Electricity Billing System</h1>
+	
+</div>
+
+
+
+</body>
+</html>
