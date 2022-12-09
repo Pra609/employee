@@ -92,20 +92,86 @@ public class UserService {
     }
 
 
-    public void deleteUser(int id){
+    public void deleteUser(int user_id){
 
 
-            if(userRepository.findById(id).isPresent()){
-                userRepository.deleteById(id);
+            if(userRepository.findById(user_id).isPresent()){
+                User user=userRepository.findById(user_id).get();
+                //System.out.println(user);
+                  userRepository.deleteUser(user_id);
+
             }
             else{
-                throw  new NoSuchElementException("user with id "+id+" doesn't exist");
+                throw  new NoSuchElementException("user with id "+user_id+" doesn't exist");
 
             }
 
 
 
 
+    }
+
+
+    public User getUserById(int user_id){
+        User user=null;
+
+        if(userRepository.findById(user_id).isPresent()){
+            user=userRepository.findById(user_id).get();
+
+
+        }
+        else{
+            throw  new NoSuchElementException("user with id "+user_id+" doesn't exist");
+
+        }
+
+          return user;
+
+
+    }
+
+    public List<User>  getUserByDepartment(int did){
+
+        List<User> user=null;
+
+        if(departmentRepository.findById(did).isPresent()){
+
+            if(!userRepository.UserByDepartment(did).isEmpty()){
+                user=userRepository.UserByDepartment(did);
+            }else{
+
+                throw new NoSuchElementException("There are no users under department with name"+departmentRepository.findById(did).get().getDepartmentName());
+            }
+
+
+        }else{
+            throw  new NoSuchElementException("department with id "+did+" doesn't exist");
+
+        }
+        return  user;
+    }
+
+
+
+    public List<User>  getUserByCompany(int did){
+
+        List<User> user=null;
+
+        if(companyRepository.findById(did).isPresent()){
+
+            if(!userRepository.UserByCompany(did).isEmpty()){
+                user=userRepository.UserByDepartment(did);
+            }else{
+
+                throw new NoSuchElementException("There are no users under department with name"+departmentRepository.findById(did).get().getDepartmentName());
+            }
+
+
+        }else{
+            throw  new NoSuchElementException("company with id "+did+" doesn't exist");
+
+        }
+        return  user;
     }
 
 

@@ -6,6 +6,7 @@ import com.management.employee.entities.User;
 import com.management.employee.repositories.UserRepository;
 import com.management.employee.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,4 +36,38 @@ public class UserController {
        User user1=userService.userEdit( id,user);
        return ResponseEntity.ok(user1);
     }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable int id){
+         userService.deleteUser(id);
+        return ResponseEntity.ok("user deleted with id "+id+" successfully");
+    }
+
+
+    @GetMapping("user/department/{did}")
+    public ResponseEntity<List<User>> getUserbyDepartment(@PathVariable int did){
+        List<User> users=userRepository.UserByDepartment(did);
+
+        return  new ResponseEntity<>(users, HttpStatus.OK);
+
+    }
+
+
+    @GetMapping("user/company/{did}")
+    public ResponseEntity<List<User>> getUserbyCompany(@PathVariable int did){
+        List<User> users=userRepository.UserByCompany(did);
+
+        return  new ResponseEntity<>(users, HttpStatus.OK);
+
+    }
+
+    @GetMapping("user/{id}")
+    public ResponseEntity<User> getUserbyId(@PathVariable int id){
+
+        User  user=userService.getUserById(id);
+        return  new ResponseEntity<>(user, HttpStatus.OK);
+
+    }
+
+
 }

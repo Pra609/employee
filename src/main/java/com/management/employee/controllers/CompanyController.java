@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -31,7 +32,7 @@ public class CompanyController {
 
 
     @PutMapping("/company/addDepartment/{id}")
-    public ResponseEntity<Company> createCompany(@PathVariable int id,@Valid @RequestBody DepartmentDto departmentDto){
+    public ResponseEntity<Company> addDepartment(@PathVariable int id,@Valid @RequestBody DepartmentDto departmentDto){
         Company company=new Company();
         if(departmentDto!=null){
        company =this.companyService.addDepartment(id,departmentDto);
@@ -41,8 +42,8 @@ public class CompanyController {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
-    @GetMapping("/allcompanies")
-    public ResponseEntity<List<Company>> getAllcompanies(){
+    @GetMapping("/companies")
+    public ResponseEntity<List<Company>> getAllCompanies(){
 
         List<Company> companies= this.companyService.getCompany();
         return  new ResponseEntity<>(companies, HttpStatus.OK);
@@ -50,6 +51,25 @@ public class CompanyController {
 
 
     }
+
+
+    @GetMapping("/company/{id}")
+    public ResponseEntity<Company> getAllCompanies(@PathVariable int id){
+
+      Company company= this.companyService.companyById(id);
+        return  new ResponseEntity<>(company, HttpStatus.OK);
+
+
+
+    }
+
+    @DeleteMapping("/company/{id}")
+    public ResponseEntity<String> createCompany(@PathVariable int id){
+         companyService.deleteCompany(id);
+
+        return ResponseEntity.ok("company deleted with id "+id+" successfully");
+    }
+
 
 
 

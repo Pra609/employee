@@ -44,7 +44,7 @@ public class DepartmentController {
 
 
     @DeleteMapping("/department/{cid}/{id}")
-    public ResponseEntity<String> deleteDepartment(@PathVariable int id,@PathVariable  int cid) throws NoSuchFieldException, PSQLException {
+    public ResponseEntity<String> deleteDepartment(@PathVariable int id,@PathVariable  int cid)  {
         this.departmentService.deleteDepartment(id,cid);
 
        return ResponseEntity.ok("department deleted with id "+id+" successfully");
@@ -54,12 +54,26 @@ public class DepartmentController {
 
 
     @PutMapping("/edit/department/{cid}/{did}")
-    public ResponseEntity<CDReturnDto> createDepartment(@PathVariable int cid,@PathVariable int did,@Valid @RequestBody DepartmentDto departmentDto) throws NoSuchFieldException {
+    public ResponseEntity<CDReturnDto> editDepartment(@PathVariable int cid,@PathVariable int did,@Valid @RequestBody DepartmentDto departmentDto)  {
         Department department=departmentService.editDepartment(cid,did,departmentDto);
         CDReturnDto cdReturnDto=this.modelMapper.map(department,CDReturnDto.class);
         return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
 
     }
 
+
+    @GetMapping("/department/{cid}")
+    public  ResponseEntity<List<Department>> getAllDepartemtsByCompany(@PathVariable int cid) {
+        List<Department> departments=departmentService.getDepartmentByCompany(cid);
+        return new ResponseEntity<>(departments, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/departmentById/{id}")
+    public ResponseEntity<CDReturnDto> Department(@PathVariable int id){
+        Department department=this.departmentService.getDepartmentById(id);
+        CDReturnDto cdReturnDto=this.modelMapper.map(department,CDReturnDto.class);
+        return new ResponseEntity<>(cdReturnDto, HttpStatus.CREATED);
+    }
 
 }

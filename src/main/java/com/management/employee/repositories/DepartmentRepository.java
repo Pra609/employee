@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+
+@Repository
 public interface DepartmentRepository extends JpaRepository<Department,Integer> {
 
     @Query(value = "select*from department where company_id = :companyId and department_name = :name",nativeQuery = true)
@@ -22,7 +25,9 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
     @Transactional
     @Query(value = "delete from  department where department_id=:departmentId and company_id=:companyId",nativeQuery = true)
     public void deleteDepartment(@Param("departmentId") int departmentId,@Param("companyId") int companyId);
-
+    @Query(value = "select*from department where company_id = :companyId ",nativeQuery = true)
+    public List<Department> findDepartmentByCompany(@Param("companyId") int companyId);
+//
 
 
     }

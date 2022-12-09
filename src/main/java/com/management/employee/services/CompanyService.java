@@ -70,4 +70,39 @@ public class CompanyService {
         return  company;
 
     }
+
+    public void deleteCompany(int id){
+        Company company = companyRepository.findById(id).get();
+        if(company!=null){
+
+            if(departmentRepository.findDepartmentByCompany(id).isEmpty()){
+
+                companyRepository.deleteById(id);
+
+            }
+            else{
+                throw new UserAlreadyExists("department under company having company id "+id+"already exists,please delete them first");
+            }
+
+
+        }else {
+            throw new NoSuchElementException("company with id" + id + "is not present");
+        }
+
+
+
+    }
+
+    public Company companyById(int id){
+        Company company=null;
+        if(companyRepository.findById(id).isPresent()){
+            company=companyRepository.findById(id).get();
+        }else {
+            throw new NoSuchElementException("company with id" + id + "is not present");
+        }
+        return  company;
+    }
+
+
+
 }

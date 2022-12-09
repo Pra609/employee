@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -57,7 +59,7 @@ public class DepartmentService {
     }
 
 
-    public  void deleteDepartment(int id,int cid) throws NoSuchFieldException {
+    public  void deleteDepartment(int id,int cid)  {
 
 
 
@@ -73,14 +75,14 @@ public class DepartmentService {
 
 
         }else{
-            throw new NoSuchFieldException("department id "+id+" is not present");
+            throw new NoSuchElementException("department id "+id+" is not present");
         }
 
 
 
     }
 
-    public Department editDepartment(int cid,int did,DepartmentDto departmentDto) throws NoSuchFieldException {
+    public Department editDepartment(int cid,int did,DepartmentDto departmentDto)  {
 
         Department department=null;
 
@@ -98,10 +100,40 @@ public class DepartmentService {
                 departmentRepository.save(department);
 
             }else{
-                throw new NoSuchFieldException("department id "+did+" is not present");
+                throw new NoSuchElementException("department id "+did+" is not present");
             }
 
 
+        }
+
+        return  department;
+
+    }
+
+
+    public List<Department> getDepartmentByCompany(int cid)  {
+        List<Department> departments=null;
+        if(companyRepository.findById(cid).isPresent()){
+
+            departments=departmentRepository.findDepartmentByCompany(cid);
+
+
+        }else{
+            throw new NoSuchElementException("company id "+cid+" is not present");
+        }
+
+        return  departments;
+    }
+
+
+    public Department getDepartmentById(int id){
+
+        Department department=null;
+
+        if(departmentRepository.findById(id).isPresent()){
+            department=departmentRepository.findById(id).get();
+        }else{
+            throw new NoSuchElementException(" Department by id "+id+" is not present");
         }
 
         return  department;
