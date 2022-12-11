@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="Layout(content)">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	
+	<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+<!-- jQuery library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    	<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript"
+			src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+		
+	<title th:text="${title}">Base Html</title>
+</head>
+<body>
+
+<section>
+
+<nav class="navbar navbar-inverse">
+<!-- nav bar for the index page -->
+  <div class="container">
+    <!-- Brand and toggle get grouped for better  display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">BILLING</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a th:href="@{/admin/home}">HOME</a></li>
+         <li><a th:href="@{/admin/customers}">VIEW CUSTOMERS</a></li>
+        <li><a th:href="@{/admin/viewcustomers/0}">GENERATE BILL</a></li>
+       
+        
+         <li><a th:href="@{/admin/generatebill}">VIEW BILL</a></li>
+            <li><a th:href="@{/admin/viewrates}">VIEW RATES</a></li>
+            <li><a th:href="@{/admin/reports}">MONTHLY REPORTS</a></li>
+          <li><a th:href="@{/logout}">LOGOUT</a></li>
+       </ul>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  
+<!-- message box -->
+		<div th:if="${session.message}" class="container">
+			<div th:classappend="${'alert-'+session.message.type}" class="alert text-center" role="alert">
+ 				 <span th:text="${session.message.content}"></span>
+			</div>
+			<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+		</div>
+
+
+	
+	
+	 
+<div th:replace="${content}"></div>
+</section>
+
+
+</body>
+</html>

@@ -11,12 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.method.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.security.authorization.AuthorityReactiveAuthorizationManager.hasRole;
+
 @RestController
+
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
@@ -53,8 +57,9 @@ public class CompanyController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/company/{id}")
-    public ResponseEntity<Company> getAllCompanies(@PathVariable int id){
+    public ResponseEntity<Company> getCompanyById(@PathVariable int id){
 
       Company company= this.companyService.companyById(id);
         return  new ResponseEntity<>(company, HttpStatus.OK);

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::Layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<section>
+  <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3" id="formpostclassified">
+          
+           
+                <h1 style="text-align: center;color:blue;"> Login Form</h1><hr>
+                
+                <div th:if="${param.error}" class="alert alert-danger text-center">
+                            	Invalid username and password
+                            </div>
+                            
+                            <div th:if="${param.logout}" class="alert alert-success text-center">
+                            	You have been successfully logout
+                            </div>
+                            
+                            <div th:if="${param.change}" class="alert alert-success text-center">
+                            	<p th:text="${param.change}"></p>
+                            </div>
+                <form class="form-horizontal" name="f" th:action="@{/dologin}" method="post">
+                    <div class="form-group">
+                        <label class="control-label col-sm-3" for="name">Email:</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control"  placeholder="Enter Email" name="username" required>
+                        </div>
+                      </div><br>
+                      <div class="form-group">
+                      <label class="control-label col-sm-3" for="pwd">Password:</label>
+                      <div class="col-sm-8">          
+                        <input type="password" class="form-control"  placeholder="Enter password" name="password"   required>
+                      </div>
+                    </div><br>
+                    <div class="form-group">        
+                      <div class="col-sm-offset-3 col-sm-8">
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                      </div>
+                    </div>
+                    <hr>
+                </form>
+                
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+</body>
+</html>
