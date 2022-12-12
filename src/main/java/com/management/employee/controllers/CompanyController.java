@@ -5,6 +5,7 @@ import com.management.employee.dtos.CompanyDto;
 import com.management.employee.dtos.DepartmentDto;
 import com.management.employee.entities.Company;
 import com.management.employee.entities.Department;
+import com.management.employee.repositories.CompanyRepository;
 import com.management.employee.services.CompanyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ import static org.springframework.security.authorization.AuthorityReactiveAuthor
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -47,9 +51,18 @@ public class CompanyController {
     }
 
     @GetMapping("/companies")
-    public ResponseEntity<List<Company>> getAllCompanies(){
+    public ResponseEntity<List<Company>> getAllCompanies(@RequestParam(required = false) String keyword){
 
-        List<Company> companies= this.companyService.getCompany();
+        List<Company> companies=null;
+        if(keyword==null){
+            companies    = this.companyService.getCompany();
+        }
+        else{
+            companies=companyRepository.getcompanyByKeyword(keyword);
+
+                            }
+
+
         return  new ResponseEntity<>(companies, HttpStatus.OK);
 
 
