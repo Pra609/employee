@@ -50,10 +50,10 @@ function pagedata(pageno){
 
 
 					'<td>' +
-					'<button type = "button" id = "edit' + item.companyId + '" class = "btn btn-warning btn-md edit">Edit</button>' +
+					'<button type = "button" id = "view' + item.companyId + '" class = "btn btn-warning btn-md view" >View</button>' +
 					'</td>' +
 					'<td>' +
-					'<button type = "button" id = "delet' + item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Pay Now</button>' +
+					'<button type = "button" id = "delet' + item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Delete</button>' +
 					'</td>' +
 
 
@@ -115,3 +115,7 @@ function ajaxGet() {
 $(document).ready(function() {
 	ajaxGet();
 })
+
+$(document).delegate('.view', 'click', function() {
+window.location.href = "companyView";
+});

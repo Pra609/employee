@@ -15,9 +15,9 @@ public class AdminViewController {
 
 
 
-    @RequestMapping("/rates")
+    @RequestMapping("/companyView")
     public String addRates() {
-        return "Admin/rate";
+        return "Admin/companyView";
     }
     @RequestMapping("/reports")
     public String energyReports() {
