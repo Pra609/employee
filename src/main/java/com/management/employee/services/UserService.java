@@ -44,12 +44,12 @@ public class UserService {
 
         User employee = modelMapper.map(userDto, User.class);
 
-        int cid= userDto.getCid();
-        if(companyRepository.findById(cid).isPresent()){
-            employee.setCompany(companyRepository.getById(cid));
+        String cname= userDto.getCname();
+        if(companyRepository.findOneByCompanyNameIgnoreCase(cname).isPresent()){
+            employee.setCompany(companyRepository.findOneByCompanyNameIgnoreCase(cname).get());
         }
         else {
-            throw new NoSuchElementException("company " + cid + " not found");
+            throw new NoSuchElementException("company " + cname + " not found");
         }
         userRepository.save(employee);
 

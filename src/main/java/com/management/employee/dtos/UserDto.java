@@ -11,5 +11,5 @@ public class UserDto {
 
     private String password;
 
-    int cid;
+    String cname;
 }
