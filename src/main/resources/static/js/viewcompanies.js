@@ -12,7 +12,7 @@ $(document).ready(
 
 	});
 var globleTableData=[]
-
+var coId=null;
 function decPageNo()
 {
 	let page=Number($('#companyPageNo').text())
@@ -51,17 +51,18 @@ function pagedata(pageno){
 					'<td id = "Id' + item.companyId + '">' + item.companyId + '</td>' +
 					'<td id = "name' + item.companyId + '">' + item.companyName+ '</td>' +
 
-					'<td>' +
-                    					'<button type = "button" id = "view' + item.companyId + '" class = "btn btn-warning btn-md view" >View</button>' +
-                    					'</td>' +
 
 
-					'<td>' +
-                    					'<button type = "button" id = "edit' + item.companyId + '" class = "btn btn-warning btn-md edit">Edit</button>' +
-                    					'</td>' +
-                    					'<td>' +
-                    					'<button type = "button" id = "delet' + item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Delete</button>' +
-                    					'</td>' +
+
+				'<td>' +
+                       '<button type = "button" id = "coView' +item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "coView(' +item.companyId + ')">View</button>' +
+                '</td>' +
+                '<td>' +
+                					'<button type = "button" id = "edit' + item.companyId + '" class = "btn btn-warning btn-md edit">Edit</button>' +
+                					'</td>' +
+                '<td>' +
+                   '<button type = "button" id = "delet' + item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Delete</button>' +
+                '</td>' +
 
 
 
@@ -122,13 +123,46 @@ function ajaxGet() {
 $(document).ready(function() {
 	ajaxGet();
 })
+/*$(document).delegate('.vie', 'click', function() {
+//window.location.href = "companyView";
+coId=vie(companyId);
+console.log(coId+"coid");
+});*/
 
-$(document).delegate('.view', 'click', function() {
-window.location.href = "/admin/companyView"
+function coView(companyId){
+window.location.href = "/admin/companyView/"+companyId,
+//var newWindow = window.open('/admin/companyView/'+companyId)
+coId=companyId;
+//newWindow.my_special_setting = companyId;
+console.log(coId+"coid");
+var m=companyId;
+localStorage.setItem("companyId",m);
+};
 
-var cid=
 
-});
+/* Delete */
+function delet(billid){
+	if (confirm('Do you really want to pay the bill?')) {
+		var parent = $(this).parent().parent();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/deletebill/" +billid,
+			cache: false,
+			success: function() {
+				parent.fadeOut('slow', function() {
+					$(this).remove();
+				});
+				location.reload(true)
+			},
+			error: function() {
+				$('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting record').fadeIn().fadeOut(4000, function() {
+					$(this).remove();
+				});
+			}
+		});
+	}
+};
 
 
 

@@ -50,6 +50,12 @@ public class CompanyController {
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
 
+    @PutMapping("/editCompany/{id}")
+    public ResponseEntity<Company> editCompany(@PathVariable int id,@Valid @RequestBody CompanyDto companyDto){
+      Company company=  companyService.editCompanyById(id,companyDto);
+        return new ResponseEntity<>(company, HttpStatus.OK);
+    }
+
     @GetMapping("/companies")
     public ResponseEntity<List<Company>> getAllCompanies(@RequestParam(required = false) String keyword){
 

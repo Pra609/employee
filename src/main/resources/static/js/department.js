@@ -1,4 +1,6 @@
 
+var cid=localStorage.getItem("companyId");
+console.log(cid+"cid")
 
 
 
@@ -14,8 +16,8 @@ $(document).ready(
 
 	});
 var globleTableData=[]
-var url = 'http://localhost:9000/admin/companyView/'+;
-var cid = url.substring(url.lastIndexOf('/') + 1);
+//var url = 'http://localhost:9000/admin/companyView/'+;
+//var cid = url.substring(url.lastIndexOf('/') + 1);
 
 
 console.log(cid)
@@ -134,6 +136,9 @@ window.location.href = "companyView"
 
 
 });
+
+
+/*DELETE*/
 
 
 

@@ -34,7 +34,7 @@ public class CompanyService {
         String Cname= companyDto.getName();
         //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
         if(companyRepository.findOneByCompanyNameIgnoreCase(Cname).isPresent()){
-            throw new UserAlreadyExists("Company with name " + Cname + " is already presenet  ");
+            throw new UserAlreadyExists("Company with name " + Cname + " is already present  ");
         }
         Company company=this.modelMapper.map(companyDto,Company.class);
         Company c1= companyRepository.save(company);
@@ -101,6 +101,19 @@ public class CompanyService {
             throw new NoSuchElementException("company with id" + id + "is not present");
         }
         return  company;
+    }
+
+    public  Company editCompanyById(int id,CompanyDto companyDto){
+        Company company=null;
+        if(companyRepository.findById(id).isPresent() && companyDto.getName()!=null){
+            company=companyRepository.findById(id).get();
+            company.setCompanyName(companyDto.getName());
+         companyRepository.save(company);
+        }else {
+            throw new NoSuchElementException("company with id" + id + "is not present");
+        }
+        return  company;
+
     }
 
 

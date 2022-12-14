@@ -2,56 +2,52 @@
 <html   xmlns:th="http://www.thymeleaf.org"
 >
 <head>
-<meta charset="UTF-8">
-<title>Employee Management  System</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Employee Management  System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-  </head>
+</head>
 <body>
 
 <!-- nav bar for the index page -->
 
-    <!-- Brand and toggle get grouped for better  display -->
-
-      <h1>Companies</h1>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-
- <!-- /.container-fluid -->
+<!-- Brand and toggle get grouped for better  display -->
 
 
-    <script
-            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript"
-            src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
-    <script src="/js/viewcompanies.js"></script>
+<!-- Collect the nav links, forms, and other content for toggling -->
+
+<!-- /.container-fluid -->
+
+
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+
 
 
 <div class="container-fluid">
+    <h1>Companies</h1>
 
 
 
-    <div class="row">
-        <div class="col-sm-4">
-            <form id="getCompanies" name="getCompamies" method="post">
-                <div>
-                    <input class="form-control me-2 mt-2" type="search"
-                           id="keyword" name="keyword" placeholder="Search"
+    <div class="container-fluid" style="padding:40px;">
 
-                           aria-label="Search">
-                </div>
-                <div>
-                    <button class="btn btn-outline-success btn-dark mt-2 mb-2"
-                            type="submit">Search</button>
-                </div>
+        <div id="viewc" style=" overflow: auto;">
+            <form class="form-inline" id="getCompanies" name="getCompanies" method="post">
+                <input class="form-control mr-sm-3 col-sm-6" id="keyword" name="keyword"type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+                <a class=" btn btn-primary ml-sm-5 "th:href="@{/admin/addCompany}"style="   text-align:right;">ADD COMPANY</a>
             </form>
         </div>
+    </div>
     </div>
 
     <table id="myTable" border="1" class="table table-striped table-responsive-md">
@@ -60,7 +56,8 @@
             <th>Id</th>
             <th>Name</th>
 
-            <th>View</th>
+            <th >View</th>
+            <th >Edit</th>
             <th>Delete</th>
 
 
@@ -78,7 +75,7 @@
     <label id='companyPageNo'>1</label>
     <button onclick='incPageNo()'>Next</button>
 </div>
-
+<script src="/js/viewcompanies.js"></script>
 
 
 </body>

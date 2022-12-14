@@ -16,8 +16,8 @@ public class AdminViewController {
 
 
 
-    @RequestMapping("/companyView")
-    public String addRates() {
+    @RequestMapping("/companyView/{id}")
+    public String addRates(@PathVariable("id") int id) {
         return "Admin/companyView";
     }
     @RequestMapping("/departmentView")
@@ -25,9 +25,9 @@ public class AdminViewController {
         return "Admin/department";
     }
 
-    @RequestMapping("/viewrates")
-    public String viewAllRates() {
-        return "Admin/viewrates";
+    @RequestMapping("/addCompany")
+    public String addCompany() {
+        return "Admin/addCompany";
     }
 
     @RequestMapping("/generatebill")
