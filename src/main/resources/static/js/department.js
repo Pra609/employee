@@ -14,7 +14,7 @@ $(document).ready(
 
 	});
 var globleTableData=[]
-var url = 'http://localhost:9000/admin/companyView/5';
+var url = 'http://localhost:9000/admin/companyView/'+;
 var cid = url.substring(url.lastIndexOf('/') + 1);
 
 
@@ -54,15 +54,16 @@ function pagedata(pageno){
 					'<td id = "Id' + item.departmentId+ '">' + item.departmentId + '</td>' +
 					'<td id = "name' + item.departmentId+ '">' + item.departmentName+ '</td>' +
 
-						'<td id = "VIEW' + item.departmentId+ '">' + '<a href="/admin/companyView/'+ item.departmentId+ '"+" class = "btn btn-primary btn-md "">' + 'View' +
-                                                                            					'</td>' +
+						'<td>' +
+                                            					'<button type = "button" id = "view' + item.departmentId+'" class = "btn btn-danger btn-md delet" onclick = "view(' + item.departmentId + ')">View</button>' +
+                                            					'</td>' +
 
 
 					'<td>' +
                     					'<button type = "button" id = "edit' + item.departmentId+'" class = "btn btn-warning btn-md edit">Edit</button>' +
                     					'</td>' +
                     					'<td>' +
-                    					'<button type = "button" id = "delet' + item.departmentId+'" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Delete</button>' +
+                    					'<button type = "button" id = "delet' + item.departmentId+'" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.departmentId + ')">Delete</button>' +
                     					'</td>' +
 
 
@@ -127,9 +128,12 @@ $(document).ready(function() {
 	ajaxGet();
 })
 
-/*$(document).delegate('.view', 'click', function() {
+$(document).delegate('.view', 'click', function() {
 window.location.href = "companyView"
-});*/
+
+
+
+});
 
 
 

@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html   xmlns:th="http://www.thymeleaf.org">
+<html   xmlns:th="http://www.thymeleaf.org"
+>
 <head>
   <meta charset="UTF-8">
   <title>Employee Management System</title>
@@ -48,6 +49,7 @@ padding:10px;
 </style>
 </head>
 <body>
+
 <nav class="navbar navbar-inverse">
   <!-- nav bar for the index page -->
   <div class="container">
@@ -67,6 +69,8 @@ padding:10px;
       <ul class="nav navbar-nav">
         <li><a href="#" class="active">HOME</a></li>
 
+
+
         <li><a th:href="@{/admin/departmentView}">VIEW DEPARTMENT</a></li>
         <li><a th:href="@{/register}">REGISTER</a></li>
       </ul>
@@ -80,7 +84,6 @@ padding:10px;
   <h1 class="center">Welcome to Employee Management System</h1>
 
 </div>
-
 
 
 </body>

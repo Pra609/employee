@@ -45,15 +45,15 @@ function pagedata(pageno){
 	data=globleTableData.slice(startno,endno)
 	data.forEach(function(item) {
 
-    var cid=item.companyId;
-     console.log(cid,"cid")
+
 
 		tableData += '<tr>' +
 					'<td id = "Id' + item.companyId + '">' + item.companyId + '</td>' +
 					'<td id = "name' + item.companyId + '">' + item.companyName+ '</td>' +
 
-						'<td id = "VIEW' + item.companyId + '">' + '<a href="/admin/companyView/'+ item.companyId + '"+" class = "btn btn-primary btn-md "">' + 'View' +
-                                                                            					'</td>' +
+					'<td>' +
+                    					'<button type = "button" id = "view' + item.companyId + '" class = "btn btn-warning btn-md view" >View</button>' +
+                    					'</td>' +
 
 
 					'<td>' +
@@ -123,9 +123,12 @@ $(document).ready(function() {
 	ajaxGet();
 })
 
-/*$(document).delegate('.view', 'click', function() {
-window.location.href = "companyView"
-});*/
+$(document).delegate('.view', 'click', function() {
+window.location.href = "/admin/companyView"
+
+var cid=
+
+});
 
 
 

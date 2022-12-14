@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html   xmlns:th="http://www.thymeleaf.org"
-th:replace="Admin/base::Layout(~{::section})">
+>
 <head>
 <meta charset="UTF-8">
-<title>Electricity Billing System</title>
+<title>Employee Management  System</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -12,74 +12,20 @@ th:replace="Admin/base::Layout(~{::section})">
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<style>
-img {
-	width: 100%;
-	height:auto;
-  display: block;
-}
- 
-.cover {
-	background-color: blue;
-}
-h1{
-   position:absolute;
-   top:200px;
-   left:150px;
-   font-size:50px;
-}.center{
-margin:auto;
-width:100%;
-color:white;
-padding:10px;
-}
 
-p{
-position:absolute;
-   top:300px;
-   left:200px;
-   font-size:25px;
-}.center1{
-margin:auto;
-width:100%;
-color:white;
-padding:10px;
-}
-</style>
   </head>
 <body>
-<nav class="navbar navbar-inverse">
+
 <!-- nav bar for the index page -->
-  <div class="container">
+
     <!-- Brand and toggle get grouped for better  display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">BILLING</a>
-    </div>
 
+      <h1>Companies</h1>
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a th:href="@{/admin/home}">HOME</a></li>
-         <li><a th:href="@{/admin/customers}">VIEW CUSTOMERS</a></li>
-        <li><a th:href="@{/admin/viewcustomers/0}">GENERATE BILL</a></li>
+
+ <!-- /.container-fluid -->
 
 
-         <li><a th:href="@{/admin/generatebill}">VIEW BILL</a></li>
-          <li><a th:href="@{/admin/viewrates}">VIEW RATES</a></li>
-          <li><a th:href="@{/admin/reports}">MONTHLY REPORTS</a></li>
-          <li><a th:href="@{/logout}">LOGOUT</a></li>
-       </ul>
-
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-<section>
     <script
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript"
@@ -88,7 +34,7 @@ padding:10px;
 
 
 <div class="container-fluid">
-    <h1>Companies</h1>
+
 
 
     <div class="row">
@@ -132,7 +78,6 @@ padding:10px;
     <label id='companyPageNo'>1</label>
     <button onclick='incPageNo()'>Next</button>
 </div>
-</section>
 
 
 
