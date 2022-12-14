@@ -62,9 +62,17 @@ public class DepartmentController {
     }
 
 
-    @GetMapping("/department/{cid}")
-    public  ResponseEntity<List<Department>> getAllDepartemtsByCompany(@PathVariable int cid) {
-        List<Department> departments=departmentService.getDepartmentByCompany(cid);
+    @GetMapping("/departmentbycompany/{cid}")
+    public  ResponseEntity<List<Department>> getAllDepartemtsByCompany(@PathVariable int cid,@RequestParam(required = false) String keyword) {
+        List<Department> departments=null;
+        if(keyword==null){
+            departments=departmentService.getDepartmentByCompany(cid);
+        }
+        else{
+            departments=departmentRepository.getDepartmentByKeyword(keyword,cid);
+        }
+
+
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 

@@ -1,6 +1,7 @@
 package com.management.employee.view;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,13 +16,13 @@ public class AdminViewController {
 
 
 
-    @RequestMapping("/companyView")
-    public String addRates() {
+    @RequestMapping("/companyView/{id}")
+    public String addRates(@PathVariable int id) {
         return "Admin/companyView";
     }
-    @RequestMapping("/reports")
+    @RequestMapping("/departmentView")
     public String energyReports() {
-        return "Admin/monthly";
+        return "Admin/department";
     }
 
     @RequestMapping("/viewrates")

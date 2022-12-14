@@ -29,5 +29,9 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer> 
     public List<Department> findDepartmentByCompany(@Param("companyId") int companyId);
 //
 
+    @Query("SELECT a from  Department a WHERE  a.departmentName  LIKE %?1%  and a.company.companyId=?2")
+    public List<Department> getDepartmentByKeyword(String keyword,int companyId);
 
+    //@Query(value="select*from department  WHERE  a.department_name LIKE %'keyword'%  and company_id=:companyId",nativeQuery = true)
+    //public List<Department> getDepartmentByKeywordAndCompany(@Param("companyId") int companyId,@Param("keyword") String keyword);
     }
