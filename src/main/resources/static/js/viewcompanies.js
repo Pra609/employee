@@ -141,13 +141,13 @@ localStorage.setItem("companyId",m);
 
 
 /* Delete */
-function delet(billid){
-	if (confirm('Do you really want to pay the bill?')) {
+function delet(companyId){
+	if (confirm('Do you really want to delete the company?')) {
 		var parent = $(this).parent().parent();
 
 		$.ajax({
 			type: "DELETE",
-			url: "/deletebill/" +billid,
+			url: "/company/" +companyId,
 			cache: false,
 			success: function() {
 				parent.fadeOut('slow', function() {
