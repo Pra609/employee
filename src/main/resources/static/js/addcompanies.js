@@ -12,7 +12,7 @@ $(document).ready(
 
 				// PREPARE FORM DATA
 				var formData = {
-					companyName:$("#companyName").val(),
+					name:$("#name").val(),
 
 
 

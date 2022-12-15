@@ -26,7 +26,7 @@ function validateForm() {
 
     //validate city
      if(name == "") {
-        printError("nameErr", "Please  enter a energy");
+        printError("nameErr", "Please  enter a company name");
     }  else {
             printError("nameErr", "");
             energyErr = false;
