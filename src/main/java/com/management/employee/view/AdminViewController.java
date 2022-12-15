@@ -21,13 +21,18 @@ public class AdminViewController {
         return "Admin/companyView";
     }
     @RequestMapping("/departmentView")
-    public String energyReports() {
+    public String departmentView() {
         return "Admin/department";
     }
 
     @RequestMapping("/addCompany")
     public String addCompany() {
         return "Admin/addCompany";
+    }
+
+    @RequestMapping("/addDepartment")
+    public String addDepartment() {
+        return "Admin/addDepartment";
     }
 
     @RequestMapping("/generatebill")

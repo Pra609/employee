@@ -92,35 +92,7 @@ function ajaxGet() {
 			let page=Number($('#departmentPageNo').text())
 			console.log(globleTableData,'globleTableData')
 			pagedata(page)
-//			data.forEach(function(item) {
-//				tableData += '<tr>' +
-//					'<td id = "Id' + item.billid + '">' + item.billid + '</td>' +
-//					'<td id = "name' + item.billid + '">' + item.name+ '</td>' +
-//					'<td id = "meter' + item.billid + '">' + item.meter+ '</td>' +
-//                    '<td id = "metertype' + item.billid + '">' + item.metertype+ '</td>' +
-//					'<td id = "board' + item.billid + '">' + item.board+ '</td>' +
-//					'<td id = "bconntype' + item.billid + '">' + item.bconntype + '</td>' +
-//					'<td id = "energy' + item.billid + '">' + item.energy + '</td>' +
-//					'<td id = "date' + item.billid + '">' + item.date + '</td>' +
-//					'<td id = "price' + item.billid + '">' + item.price + '</td>' +
-//					'<td id = "status' + item.billid + '">' + item.status + '</td>' +
-//
-//
-//
-//
-//					'<td>' +
-//					'<button type = "button" id = "edit' + item.billid + '" class = "btn btn-warning btn-md edit">Edit</button>' +
-//					'</td>' +
-//					'<td>' +
-//					'<button type = "button" id = "delet' + item.billid + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.billid + ')">Pay Now</button>' +
-//					'</td>' +
-//
-//
-//
-//
-//					'</tr>';
-//			});
-//			$("#myTable>tbody").html(tableData);
+
 		},
 
 	});
@@ -130,12 +102,6 @@ $(document).ready(function() {
 	ajaxGet();
 })
 
-$(document).delegate('.view', 'click', function() {
-window.location.href = "companyView"
-
-
-
-});
 
 
 /*DELETE*/

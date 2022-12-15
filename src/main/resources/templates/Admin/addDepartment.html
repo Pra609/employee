@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="Admin/base::Layout(~{::section})">
+<head>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Employee Billing System</title>
+</head>
+
+<body>
+
+<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+  <p class="text-center" th:text="${session.message.content}"></p>
+  <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+</div>
+
+<section>
+  <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+  <div id="postResultDiv" align="center"></div>
+  <div class="container">
+
+    <div th:if="${param.success}">
+      <div class="alert alert-info">You've successfully added company!!!!!</div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3" >
+
+        <h1 style="text-align: center;color:blue;">ADD DEPARTMENTS</h1><hr>
+        <form class="form-horizontal" id="addDepartments" name="addDepartments" onsubmit="validateForm()"  method="post" >
+
+
+
+
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="name">Department Name:</label>
+            <div class="col-sm-8">
+              <input  type="text" step="any" class="form-control"  placeholder="Enter Department Name" id="name" name="name"   >
+              <div class="error" id="nameErr"></div>
+            </div>
+          </div><br>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-8">
+              <button type="submit" class="btn btn-primary btn-block">Submit</button>
+              <button type="reset" class="btn btn-primary btn-block">Reset</button>
+            </div>
+          </div>
+          <hr>
+        </form>
+
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/addDepartments.js"></script>
+  <script src="/js/departmentValidation.js"></script>
+</section>
+
+</body>
+</html>
