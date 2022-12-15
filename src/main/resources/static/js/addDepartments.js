@@ -28,9 +28,9 @@ $(document).ready(
 
 				// DO POST
 				$.ajax({
-					type : "PUT",
+					type : "POST",
 					contentType : "application/json",
-					url : "/company/addDepartment/"+cid,
+					url : "/department/"+cid,
 					data : JSON.stringify(formData),
 					dataType : 'json',
 					success : function(data)
