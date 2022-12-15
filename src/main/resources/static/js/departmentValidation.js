@@ -11,7 +11,7 @@ function submitForm(){
 function validateForm() {
     // Retrieving the values of form elements
 
-    var name=document.addCompanies.name.value;
+    var name=document.addDepartments.dname.value;
 
   	//var role = document.addCustomer.role.value;
 
@@ -19,13 +19,13 @@ function validateForm() {
 
     var  nameErr=true;
 
-     console.log(name+"name")
+     console.log(dname+"dname")
 
 
     // Validate name
 
     //validate city
-     if(name == "") {
+     if(dname == "") {
         printError("nameErr", "Please  enter a company name");
     }  else {
             printError("nameErr", "");
@@ -53,7 +53,7 @@ function validateForm() {
         // Creating a string from input data for preview
         var dataPreview = "You've entered the following details: \n" +
 
-                           "Name: " + name+ "\n"
+                           "Name: " + dname+ "\n"
 
 
 

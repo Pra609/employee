@@ -7,7 +7,7 @@ $(document).ready(
 		function() {
 
 			// SUBMIT FORM
-			$("#adddepartments").submit(function(event) {
+			$("#addDepartments").submit(function(event) {
 				// Prevent the form from submitting via the browser.
 				event.preventDefault();
 				ajaxPost();
@@ -17,7 +17,7 @@ $(document).ready(
 
 				// PREPARE FORM DATA
 				var formData = {
-					name:$("#name").val(),
+					dname:$("#dname").val(),
 
 
 
@@ -28,7 +28,7 @@ $(document).ready(
 
 				// DO POST
 				$.ajax({
-					type : "POST",
+					type : "PUT",
 					contentType : "application/json",
 					url : "/company/addDepartment/"+cid,
 					data : JSON.stringify(formData),

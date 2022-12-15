@@ -27,6 +27,9 @@ public class CompanyService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    DepartmentService departmentService;
+
 
 
     public Company saveCompany(CompanyDto companyDto){
@@ -52,8 +55,8 @@ public class CompanyService {
         Company company = companyRepository.findById(id).get();
         if (company != null) {
             if (departmentDto.getDname() != null) {
-                if (departmentRepository.findDepartmentByNameAndCompany(company.getCompanyId(),departmentDto.getDname())!=null) {
-                    Department d1 = departmentRepository.findDepartmentByNameAndCompany(company.getCompanyId(),departmentDto.getDname());
+                if (departmentRepository.findDepartmentByNameAndCompany(company.getCompanyId(),departmentDto.getDname())==null) {
+                   Department d1=departmentService.saveDepartment(id, departmentDto);
 
                     company.getDepartment().add(d1);
 
