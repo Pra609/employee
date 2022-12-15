@@ -29,7 +29,7 @@ function validateForm() {
         printError("nameErr", "Please  enter a company name");
     }  else {
             printError("nameErr", "");
-            energyErr = false;
+            nameErr = false;
         }
 
 
@@ -46,12 +46,15 @@ function validateForm() {
     // Prevent the form from being submitted if there are any errors
     if((nameErr) == true) {
        return false;
+       console.log(nameErr)
+
     } else {
+
         // Creating a string from input data for preview
         var dataPreview = "You've entered the following details: \n" +
 
-                           "Name: " + name+ "\n" ;
-}
+                           "Name: " + name+ "\n"
+
 
 
        console.log(dataPreview)
@@ -64,6 +67,6 @@ function validateForm() {
 	     window.location = "/admin/addCompany";
        }
 
-
+}
     };
 

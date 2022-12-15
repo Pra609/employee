@@ -55,10 +55,10 @@ function pagedata(pageno){
 
 
 				'<td>' +
-                       '<button type = "button" id = "coView' +item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "coView(' +item.companyId + ')">View</button>' +
+                       '<button type = "button" id = "coView' +item.companyId + '" class = "btn btn-danger btn-md coView" onclick = "coView(' +item.companyId + ')">View</button>' +
                 '</td>' +
                 '<td>' +
-                					'<button type = "button" id = "edit' + item.companyId + '" class = "btn btn-warning btn-md edit">Edit</button>' +
+                					'<button type = "button" id = "edit' + item.companyId + '" class = "btn btn-warning btn-md edit" onclick = "edit(' + item.companyId + ')">Edit</button>' +
                 					'</td>' +
                 '<td>' +
                    '<button type = "button" id = "delet' + item.companyId + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.companyId + ')">Delete</button>' +
@@ -86,35 +86,7 @@ function ajaxGet() {
 			let page=Number($('#companyPageNo').text())
 			console.log(globleTableData,'globleTableData')
 			pagedata(page)
-//			data.forEach(function(item) {
-//				tableData += '<tr>' +
-//					'<td id = "Id' + item.billid + '">' + item.billid + '</td>' +
-//					'<td id = "name' + item.billid + '">' + item.name+ '</td>' +
-//					'<td id = "meter' + item.billid + '">' + item.meter+ '</td>' +
-//                    '<td id = "metertype' + item.billid + '">' + item.metertype+ '</td>' +
-//					'<td id = "board' + item.billid + '">' + item.board+ '</td>' +
-//					'<td id = "bconntype' + item.billid + '">' + item.bconntype + '</td>' +
-//					'<td id = "energy' + item.billid + '">' + item.energy + '</td>' +
-//					'<td id = "date' + item.billid + '">' + item.date + '</td>' +
-//					'<td id = "price' + item.billid + '">' + item.price + '</td>' +
-//					'<td id = "status' + item.billid + '">' + item.status + '</td>' +
-//
-//
-//
-//
-//					'<td>' +
-//					'<button type = "button" id = "edit' + item.billid + '" class = "btn btn-warning btn-md edit">Edit</button>' +
-//					'</td>' +
-//					'<td>' +
-//					'<button type = "button" id = "delet' + item.billid + '" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.billid + ')">Pay Now</button>' +
-//					'</td>' +
-//
-//
-//
-//
-//					'</tr>';
-//			});
-//			$("#myTable>tbody").html(tableData);
+
 		},
 
 	});
@@ -150,12 +122,14 @@ function delet(companyId){
 			url: "/company/" +companyId,
 			cache: false,
 			success: function() {
+			console.log("success")
 				parent.fadeOut('slow', function() {
 					$(this).remove();
 				});
 				location.reload(true)
 			},
 			error: function() {
+			console.log("error")
 				$('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting record').fadeIn().fadeOut(4000, function() {
 					$(this).remove();
 				});
@@ -163,6 +137,67 @@ function delet(companyId){
 		});
 	}
 };
+function edit(companyId){
 
+ coId=companyId;
+ console.log(coId+"coId")
+
+
+
+$(document).delegate('.edit', 'click', function() {
+   console.log(companyId+"companyId")
+  //coId=companyId
+	var parent = $(this).parent().parent();
+
+	var companyId = parent.children("td:nth-child(1)");
+	var name = parent.children("td:nth-child(2)");
+
+    var buttons = parent.children("td:nth-child(4)");
+
+   // console.log(companyId.id+"companyId")
+
+
+	name.html("<input type='text' id='name' value='" + name.html() + "'/>");
+
+
+
+	buttons.html("<button id='save' class= 'btn btn-success'>Save</button>");
+
+});
+
+$(document).delegate('#save', 'click', function() {
+	var parent = $(this).parent().parent();
+
+
+	var companyId = parent.children("td:nth-child(1)");
+	var name = parent.children("td:nth-child(2)");
+
+    var buttons = parent.children("td:nth-child(4)");
+
+
+
+	$.ajax({
+		type: "PUT",
+		contentType: "application/json; charset=utf-8",
+		url: "/editCompany/"+coId,
+
+		data: JSON.stringify({
+			'companyId': companyId.html(), 'name': name.children("input[type=text]").val(),
+
+		}),
+		cache: false,
+		success: function() {
+
+	       name.html(name.children("input[type = text]").val());
+
+
+			buttons.html("<button class='btn btn-warning edit' id='" + companyId.html() + "'>Edit</button>");
+		},
+
+	});
+
+});
+
+};
 
 
