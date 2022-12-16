@@ -62,7 +62,7 @@ function pagedata(pageno){
 
 
 					'<td>' +
-                    					'<button type = "button" id = "edit' + item.departmentId+'" class = "btn btn-warning btn-md edit">Edit</button>' +
+                    					'<button type = "button" id = "edit' + item.departmentId+'" class = "btn btn-warning btn-md edit" onclick = "edit(' + item.departmentId + ')">Edit</button>' +
                     					'</td>' +
                     					'<td>' +
                     					'<button type = "button" id = "delet' + item.departmentId+'" class = "btn btn-danger btn-md delet" onclick = "delet(' + item.departmentId + ')">Delete</button>' +
@@ -105,6 +105,31 @@ $(document).ready(function() {
 
 
 /*DELETE*/
+
+function delet(departmentId){
+	if (confirm('Do you really want to delete the company?')) {
+		var parent = $(this).parent().parent();
+
+		$.ajax({
+			type: "DELETE",
+			url: "/department/"+cid+"/"+departmentId,
+			cache: false,
+			success: function() {
+			console.log("success")
+				parent.fadeOut('slow', function() {
+					$(this).remove();
+				});
+				location.reload(true)
+			},
+			error: function() {
+			console.log("error")
+				$('#err').html('<span style=\'color:red; font-weight: bold; font-size: 30px;\'>Error deleting record').fadeIn().fadeOut(4000, function() {
+					$(this).remove();
+				});
+			}
+		});
+	}
+};
 
 
 

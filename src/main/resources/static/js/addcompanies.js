@@ -31,7 +31,7 @@ $(document).ready(
 					success : function(data)
 				 {
 				   console.log(data)
-		        	if (data != null)
+		        	if (data != null || data!="")
 					{
 
 						 alert("You are successfully added Company");

@@ -3,56 +3,53 @@
 var cid=localStorage.getItem("companyId");
 console.log(cid+"cid")
 
-$(document).ready(
+ $(document).ready(
 		function() {
 
 			// SUBMIT FORM
 			$("#addDepartments").submit(function(event) {
 				// Prevent the form from submitting via the browser.
 				event.preventDefault();
-				ajaxPost();
+
+				//if noerror
+				if(validated)
+				{
+					console.log('post call happened')
+					ajaxPost();
+				}
+
 			});
 
 			function ajaxPost() {
 
 				// PREPARE FORM DATA
 				var formData = {
-					dname:$("#dname").val(),
 
-
+						dname:$("#dname").val(),
 
 
 
 
 				}
 
+
 				// DO POST
 				$.ajax({
 					type : "POST",
 					contentType : "application/json",
-					url : "/department/"+cid,
+				    url : "/department/"+cid,
 					data : JSON.stringify(formData),
 					dataType : 'json',
-					success : function(data)
-				 {
-				   console.log(data)
-		        	if (data != null)
-					{
+					encode: true,
+					})
+					.done(function(data){
+		        			console.log(data);
+		        			alert("you are successfully submitted");
+					 });
 
-						 alert("You are successfully added department");
-                   		 window.location = "/admin/departmentView";
-					}
-					else
-					{
-						 alert("something went wrong");
-                   		 window.location = "/admin/addDepartment";
 
-					}
-					},
+
+				}
 
 
 				});
-
-			}
-
-		})

@@ -38,18 +38,29 @@ public class DepartmentService {
         Department department=new Department();
         if(companyRepository.findById(id).isPresent()){
             String dName = departmentDto.getDname();
-            //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
-            if(departmentRepository.findDepartmentByNameAndCompany(id,dName)!= null){
-                System.out.println();
-                throw new UserAlreadyExists("Department with name " + dName + " is already present  ");
+            System.out.println(dName+"dname");
+            if(!departmentDto.getDname().equals(null) && !departmentDto.getDname().isEmpty()) {
+                boolean c1=!departmentDto.getDname().equals(null);
+                boolean c2=!departmentDto.getDname().isEmpty();
+
+                System.out.println(c1+"c1");
+                System.out.println(c2+"c2");
+                System.out.println(departmentDto.getDname());
+
+
+                //System.out.println(departmentRepository.findOneByDepartmentNameIgnoreCase(dName));
+                if (departmentRepository.findDepartmentByNameAndCompany(id, dName) != null) {
+                    System.out.println();
+                    throw new UserAlreadyExists("Department with name " + dName + " is already present  ");
+                }
+
+
+                department.setDepartmentName(departmentDto.getDname());
+                Company company = companyRepository.findById(id).get();
+                department.setCompany(company);
+                departmentRepository.save(department);
+
             }
-
-            department.setDepartmentName(departmentDto.getDname());
-              Company company=companyRepository.findById(id).get();
-            department.setCompany(company);
-            departmentRepository.save(department);
-
-
 
         }
 
@@ -67,10 +78,10 @@ public class DepartmentService {
         if(d1!=null){
 
             //userRepository.deleteUserByDepartment(id);
-            if(!userRepository.UserByDepartment(id).isEmpty()){
+            if(userRepository.UserByDepartment(id).isEmpty()){
                 departmentRepository.deleteDepartment(id,cid);
             }else{
-                throw new UserAlreadyExists("Department with name " + id + " is already present  ");
+                throw new UserAlreadyExists("Department with name " + id + " has employee  present  ");
             }
 
 
