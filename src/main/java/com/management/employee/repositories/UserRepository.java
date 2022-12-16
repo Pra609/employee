@@ -24,6 +24,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.department_id=:departmentId and  u.role!=1",nativeQuery = true)
     public List<User> UserByDepartment(@Param("departmentId") int departmentId);
 
+    @Query(value = "SELECT a from  User a WHERE  a.name  LIKE %?1%  and a.Department.departmentId=?2  and a.Role.role!=1",nativeQuery = true)
+    public List<User> UserByDepartmentandKeyword( String keyword,int departmentId);
+
 
     @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.company_id=:companyId and  u.role!=1",nativeQuery = true)
     public List<User> UserByCompany(@Param("companyId") int companyId);
