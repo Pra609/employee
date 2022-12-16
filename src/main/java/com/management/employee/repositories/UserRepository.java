@@ -21,11 +21,11 @@ public interface UserRepository extends JpaRepository<User,Integer> {
     @Query(value = "delete from  euser where department_id=:departmentId ",nativeQuery = true)
     public void deleteUserByDepartment(@Param("departmentId") int departmentId);
 
-    @Query(value = "select*from  euser where department_id=:departmentId ",nativeQuery = true)
+    @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.department_id=:departmentId and  u.role!=1",nativeQuery = true)
     public List<User> UserByDepartment(@Param("departmentId") int departmentId);
 
 
-    @Query(value = "select*from  euser where company_id=:companyId ",nativeQuery = true)
+    @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.company_id=:companyId and  u.role!=1",nativeQuery = true)
     public List<User> UserByCompany(@Param("companyId") int companyId);
 
     @Modifying
