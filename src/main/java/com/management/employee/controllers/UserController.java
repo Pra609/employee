@@ -2,14 +2,18 @@ package com.management.employee.controllers;
 
 import com.management.employee.dtos.UserDto;
 import com.management.employee.dtos.UserEditDto;
+import com.management.employee.dtos.UserReturnDto;
 import com.management.employee.entities.User;
 import com.management.employee.repositories.UserRepository;
 import com.management.employee.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,6 +23,10 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+
+    @Autowired
+    ModelMapper modelMapper;
 
     @PostMapping("/user")
     public ResponseEntity<User> createEmployee(@RequestBody UserDto employee){
@@ -43,17 +51,29 @@ public class UserController {
         return ResponseEntity.ok("user deleted with id "+id+" successfully");
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/user/department/{did}")
+    public ResponseEntity<List<UserReturnDto>> getUserbyDepartment(@PathVariable int did){
+        List<User> users=userService.getUserByDepartment(did);
 
-    @GetMapping("user/department/{did}")
-    public ResponseEntity<List<User>> getUserbyDepartment(@PathVariable int did){
-        List<User> users=userRepository.UserByDepartment(did);
+        List<UserReturnDto>  userReturnDtos=new ArrayList<>();
 
-        return  new ResponseEntity<>(users, HttpStatus.OK);
+
+        for(int i=0;i<users.size();i++){
+            UserReturnDto userReturnDto=new UserReturnDto();
+            userReturnDto.setName(users.get(i).getName());
+            userReturnDto.setEmail(users.get(i).getEmail());
+            userReturnDto.setDname(users.get(i).getDepartment().getDepartmentName());
+            userReturnDtos.add(userReturnDto);
+        }
+
+
+        return  new ResponseEntity<>(userReturnDtos, HttpStatus.OK);
 
     }
 
 
-    @GetMapping("user/company/{did}")
+    @GetMapping("/user/company/{did}")
     public ResponseEntity<List<User>> getUserbyCompany(@PathVariable int did){
         List<User> users=userRepository.UserByCompany(did);
 
@@ -61,7 +81,7 @@ public class UserController {
 
     }
 
-    @GetMapping("user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<User> getUserbyId(@PathVariable int id){
 
         User  user=userService.getUserById(id);
