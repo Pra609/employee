@@ -133,3 +133,72 @@ function delet(departmentId){
 
 
 
+
+function edit(departmentId){
+
+ //coId=companyId;
+ //console.log(coId+"coId")
+
+var dId=departmentId;
+
+$(document).delegate('.edit', 'click', function() {
+  // console.log(companyId+"companyId")
+  //coId=companyId
+	var parent = $(this).parent().parent();
+
+	var departmentId = parent.children("td:nth-child(1)");
+	var name = parent.children("td:nth-child(2)");
+
+    var buttons = parent.children("td:nth-child(4)");
+
+   // console.log(companyId.id+"companyId")
+
+
+	name.html("<input type='text' id='name' value='" + name.html() + "'/>");
+
+
+
+	buttons.html("<button id='save' class= 'btn btn-success'>Save</button>");
+
+});
+
+$(document).delegate('#save', 'click', function() {
+	var parent = $(this).parent().parent();
+
+
+	var departmentId = parent.children("td:nth-child(1)");
+	var name = parent.children("td:nth-child(2)");
+
+    var buttons = parent.children("td:nth-child(4)");
+
+
+
+	$.ajax({
+		type: "PUT",
+		contentType: "application/json; charset=utf-8",
+		url: "/edit/department/"+cid+"/"+dId,
+
+		data: JSON.stringify({
+			'departmentId': departmentId.html(), 'name': name.children("input[type=text]").val(),
+
+		}),
+		cache: false,
+		success: function() {
+
+	       name.html(name.children("input[type = text]").val());
+
+
+			buttons.html("<button class='btn btn-warning edit' id='" + departmentId.html() + "'>Edit</button>");
+		},
+
+	});
+
+});
+
+};
+
+
+
+
+
+
