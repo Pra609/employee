@@ -1,5 +1,6 @@
 package com.management.employee.repositories;
 
+import com.management.employee.entities.Department;
 import com.management.employee.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,7 +24,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.department_id=:departmentId and  u.role!=1",nativeQuery = true)
     public List<User> UserByDepartment(@Param("departmentId") int departmentId);
-
+    @Query(value = "SELECT*from euser e join  user_role u on e.user_id=u.euser where  u.role!=1  and e.name  LIKE %?1%  and  e.department_id=?2 ",nativeQuery = true )
+    public List<User> getUserByDepartmentAndKeyword(String keyword, int departmentId);
 
     @Query(value = "select*from  euser e  join  user_role u on e.user_id=u.euser where e.company_id=:companyId and  u.role!=1",nativeQuery = true)
     public List<User> UserByCompany(@Param("companyId") int companyId);
