@@ -57,7 +57,7 @@ function pagedata(pageno){
 					'<td id = "name' + item.departmentId+ '">' + item.departmentName+ '</td>' +
 
 						'<td>' +
-                                            					'<button type = "button" id = "view' + item.departmentId+'" class = "btn btn-danger btn-md delet" onclick = "view(' + item.departmentId + ')">View</button>' +
+                                            					'<button type = "button" id = "view' + item.departmentId+'" class = "btn btn-warning btn-md view" onclick = "view(' + item.departmentId + ')">View</button>' +
                                             					'</td>' +
 
 
@@ -131,7 +131,15 @@ function delet(departmentId){
 	}
 };
 
-
+function view(departmentId){
+window.location.href = "/admin/userView/"+departmentId;
+//var newWindow = window.open('/admin/companyView/'+companyId)
+//coId=companyId;
+//newWindow.my_special_setting = companyId;
+//console.log(coId+"coid");
+var n=departmentId;
+localStorage.setItem("departmentId",n);
+};
 
 
 function edit(departmentId){

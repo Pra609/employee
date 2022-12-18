@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class UserReturnDto {
 
+    private int userId;
+
     private String name;
 
     private String email;

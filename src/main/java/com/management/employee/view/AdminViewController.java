@@ -35,9 +35,9 @@ public class AdminViewController {
         return "Admin/addDepartment";
     }
 
-    @RequestMapping("/generatebill")
-    public String generateBill() {
-        return "Admin/bill";
+    @RequestMapping("/userView/{did}")
+    public String viewUser(@PathVariable int did) {
+        return "Admin/userView";
     }
 
 }

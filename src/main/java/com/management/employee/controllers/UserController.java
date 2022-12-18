@@ -61,6 +61,7 @@ public class UserController {
 
         for(int i=0;i<users.size();i++){
             UserReturnDto userReturnDto=new UserReturnDto();
+            userReturnDto.setUserId(users.get(i).getUserId());
             userReturnDto.setName(users.get(i).getName());
             userReturnDto.setEmail(users.get(i).getEmail());
             userReturnDto.setDname(users.get(i).getDepartment().getDepartmentName());
