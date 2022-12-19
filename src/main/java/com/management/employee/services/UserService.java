@@ -130,24 +130,43 @@ public class UserService {
 
     }
 
-    public List<User>  getUserByDepartment(int did){
+    public List<User>  getUserByDepartment(int did,String keyword){
 
         List<User> user=null;
 
-        if(departmentRepository.findById(did).isPresent()){
+        if(keyword==null){
 
-            if(!userRepository.UserByDepartment(did).isEmpty()){
-                user=userRepository.UserByDepartment(did);
+            if(departmentRepository.findById(did).isPresent()){
+
+                if(!userRepository.UserByDepartment(did).isEmpty()){
+                    user=userRepository.UserByDepartment(did);
+                }else{
+
+                    throw new NoSuchElementException("There are no users under department with name"+departmentRepository.findById(did).get().getDepartmentName());
+                }
+
+
             }else{
+                throw  new NoSuchElementException("department with id "+did+" doesn't exist");
 
-                throw new NoSuchElementException("There are no users under department with name"+departmentRepository.findById(did).get().getDepartmentName());
             }
+        }else {
+            if(departmentRepository.findById(did).isPresent()){
+
+                if(!userRepository.getUserByDepartmentAndKeyword(keyword,did).isEmpty()){
+                    user=userRepository.getUserByDepartmentAndKeyword(keyword,did);
+                }else{
+
+                    throw new NoSuchElementException("There are no users under department with name"+departmentRepository.findById(did).get().getDepartmentName());
+                }
 
 
-        }else{
-            throw  new NoSuchElementException("department with id "+did+" doesn't exist");
+            }else{
+                throw  new NoSuchElementException("department with id "+did+" doesn't exist");
 
+            }
         }
+
         return  user;
     }
 

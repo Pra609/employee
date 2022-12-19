@@ -53,14 +53,15 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user/department/{did}")
-    public ResponseEntity<List<UserReturnDto>> getUserbyDepartment(@PathVariable int did){
-        List<User> users=userService.getUserByDepartment(did);
+    public ResponseEntity<List<UserReturnDto>> getUserbyDepartment(@PathVariable int did,@RequestParam(required = false) String keyword){
+        List<User> users=userService.getUserByDepartment(did,keyword);
 
         List<UserReturnDto>  userReturnDtos=new ArrayList<>();
 
 
         for(int i=0;i<users.size();i++){
             UserReturnDto userReturnDto=new UserReturnDto();
+            userReturnDto.setUserId(users.get(i).getUserId());
             userReturnDto.setName(users.get(i).getName());
             userReturnDto.setEmail(users.get(i).getEmail());
             userReturnDto.setDname(users.get(i).getDepartment().getDepartmentName());
